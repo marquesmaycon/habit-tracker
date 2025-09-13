@@ -1,8 +1,9 @@
 import { sql } from "drizzle-orm"
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
+import { main } from "./seeder"
 
 const timestamps = {
-  createdAt: text()
+  createdAt: text("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull()
 }
@@ -15,18 +16,20 @@ export const habits = sqliteTable("habits", {
 
 export const habitWeekdays = sqliteTable("habit_weekdays", {
   id: integer().primaryKey({ autoIncrement: true }),
-  habitId: integer()
+  habitId: integer("habit_id")
     .notNull()
     .references(() => habits.id, { onDelete: "cascade" }),
   weekday: integer().notNull(),
   ...timestamps
 })
 
-export const dayHabits = sqliteTable("day_habits", {
+export const habitDays = sqliteTable("habit_days", {
   id: integer().primaryKey({ autoIncrement: true }),
   date: text().notNull(),
-  habitId: integer()
+  habitId: integer("habit_id")
     .notNull()
     .references(() => habits.id, { onDelete: "cascade" }),
   ...timestamps
 })
+
+main()
