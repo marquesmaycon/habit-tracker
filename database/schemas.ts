@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm"
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
-import { main } from "./seeder"
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 const timestamps = {
   createdAt: text("created_at")
@@ -29,7 +28,5 @@ export const habitDays = sqliteTable("habit_days", {
   habitId: integer("habit_id")
     .notNull()
     .references(() => habits.id, { onDelete: "cascade" }),
-  ...timestamps
-})
-
-main()
+  ...timestamps,
+});
