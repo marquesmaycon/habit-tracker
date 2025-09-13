@@ -18,25 +18,25 @@ const availableWeekDays = [
 ];
 
 export const HabitForm = () => {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
   async function createNewHabit(event: FormEvent) {
     event.preventDefault();
 
-    if (!title || weekDays.length === 0) {
+    if (!name || weekDays.length === 0) {
       return;
     }
 
-    await fetch("habits", {
+    await fetch("api/habits", {
       method: "POST",
       body: JSON.stringify({
-        title,
+        name,
         weekDays,
       }),
     });
 
-    setTitle("");
+    setName("");
     setWeekDays([]);
   }
 
@@ -60,8 +60,8 @@ export const HabitForm = () => {
         id="title"
         placeholder="ex.: Exercícios, dormir bem, etc..."
         className="p-6 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-700! focus:ring-offset-2 focus:ring-offset-zinc-900"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
 
       <Label className="font-semibold leading-tight mt-4">
