@@ -1,11 +1,11 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "930d8025-cde4-4a81-b809-afb51c62c206",
+  "id": "32031b40-bd79-4b75-a078-b97f9332387c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "habit_days": {
-      "name": "habit_days",
+    "day_habits": {
+      "name": "day_habits",
       "columns": {
         "id": {
           "name": "id",
@@ -14,9 +14,9 @@
           "notNull": true,
           "autoincrement": true
         },
-        "date": {
-          "name": "date",
-          "type": "text",
+        "day_id": {
+          "name": "day_id",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -37,11 +37,33 @@
           "default": "CURRENT_TIMESTAMP"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "day_habits_day_id_habit_id_unique": {
+          "name": "day_habits_day_id_habit_id_unique",
+          "columns": [
+            "day_id",
+            "habit_id"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {
-        "habit_days_habit_id_habits_id_fk": {
-          "name": "habit_days_habit_id_habits_id_fk",
-          "tableFrom": "habit_days",
+        "day_habits_day_id_days_id_fk": {
+          "name": "day_habits_day_id_days_id_fk",
+          "tableFrom": "day_habits",
+          "tableTo": "days",
+          "columnsFrom": [
+            "day_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "day_habits_habit_id_habits_id_fk": {
+          "name": "day_habits_habit_id_habits_id_fk",
+          "tableFrom": "day_habits",
           "tableTo": "habits",
           "columnsFrom": [
             "habit_id"
@@ -57,8 +79,40 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "habit_weekdays": {
-      "name": "habit_weekdays",
+    "days": {
+      "name": "days",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "days_date_unique": {
+          "name": "days_date_unique",
+          "columns": [
+            "date"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "habit_week_days": {
+      "name": "habit_week_days",
       "columns": {
         "id": {
           "name": "id",
@@ -74,8 +128,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "weekday": {
-          "name": "weekday",
+        "week_day": {
+          "name": "week_day",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -90,11 +144,20 @@
           "default": "CURRENT_TIMESTAMP"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "habit_week_days_habit_id_week_day_unique": {
+          "name": "habit_week_days_habit_id_week_day_unique",
+          "columns": [
+            "habit_id",
+            "week_day"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {
-        "habit_weekdays_habit_id_habits_id_fk": {
-          "name": "habit_weekdays_habit_id_habits_id_fk",
-          "tableFrom": "habit_weekdays",
+        "habit_week_days_habit_id_habits_id_fk": {
+          "name": "habit_week_days_habit_id_habits_id_fk",
+          "tableFrom": "habit_week_days",
           "tableTo": "habits",
           "columnsFrom": [
             "habit_id"
@@ -120,8 +183,8 @@
           "notNull": true,
           "autoincrement": true
         },
-        "name": {
-          "name": "name",
+        "title": {
+          "name": "title",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
