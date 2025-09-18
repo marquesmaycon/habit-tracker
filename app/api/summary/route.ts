@@ -1,10 +1,18 @@
 import { sql } from "drizzle-orm"
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server"
+
 import { db } from "@/database/drizzle"
+
+export type Summary = {
+  id: number
+  date: string // "2025-08-25"
+  amount: number
+  completed: number
+}
 
 export async function GET() {
   try {
-    const summary = db.all(sql`
+    const summary: Summary[] = db.all(sql`
       SELECT 
         D.id, 
         D.date,

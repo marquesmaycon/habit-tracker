@@ -7,11 +7,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateDates() {
-  const firstDayOfTheYear = dayjs("2025-01-01");
+  const startDate = dayjs("2024-12-29")
   const today = new Date();
 
   const dates = [];
-  let compareDate = firstDayOfTheYear;
+  let compareDate = startDate
 
   while (compareDate.isBefore(today)) {
     dates.push(compareDate.toDate());
