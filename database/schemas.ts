@@ -21,9 +21,7 @@ export const habitWeekDays = sqliteTable(
     weekDay: integer("week_day").notNull(),
     ...timestamps,
   },
-  (table) => ({
-    uniqueHabitWeekDay: unique().on(table.habitId, table.weekDay),
-  }),
+  (table) => [unique().on(table.habitId, table.weekDay)],
 )
 
 export const days = sqliteTable("days", {
@@ -43,9 +41,7 @@ export const dayHabits = sqliteTable(
       .references(() => habits.id, { onDelete: "cascade" }),
     ...timestamps,
   },
-  (table) => ({
-    uniqueDayHabit: unique().on(table.dayId, table.habitId),
-  }),
+  (table) => [unique().on(table.dayId, table.habitId)],
 )
 
 // Definindo as relações

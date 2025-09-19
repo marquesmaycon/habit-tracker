@@ -1,34 +1,36 @@
-import dayjs from "dayjs"
 import { eq, lte } from "drizzle-orm"
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 import * as z from "zod"
-import { db } from "@/database/drizzle"
-import { days, habits, habitWeekDays } from "@/database/schemas"
 
-export async function GET(request: Request) {
+import { db } from "@/database/drizzle"
+import { days, habits } from "@/database/schemas"
+
+export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url)
-    const dateParam = url.searchParams.get("date")
+    const dateParam = request.nextUrl.searchParams.get("date")
     const getDaySchema = z.object({
       date: z.coerce.date(),
     })
 
     const { date } = getDaySchema.parse({ date: dateParam })
+    const isoDate = date.toISOString()
 
-    const parsedDate = dayjs(date).startOf("day")
-    const weekDay = dayjs(date).get("day")
-
-    const possibleHabits = await db.query.habits.findMany({
-      where: lte(habits.createdAt, date.toISOString()),
+    const habitRecords = await db.query.habits.findMany({
+      where: lte(habits.createdAt, isoDate),
       with: {
-        weekDays: {
-          where: eq(habitWeekDays.weekDay, weekDay),
-        },
+        weekDays: true,
       },
     })
 
+    const weekDay = date.getUTCDay()
+
+    const possibleHabits = habitRecords.filter((habit) =>
+      habit.weekDays.some((wd) => wd.weekDay === weekDay),
+    )
+
+    const parsedDate = isoDate.slice(0, 10)
     const day = await db.query.days.findFirst({
-      where: eq(days.date, parsedDate.toISOString().split("T")[0]),
+      where: eq(days.date, parsedDate),
       with: {
         dayHabits: true,
       },
