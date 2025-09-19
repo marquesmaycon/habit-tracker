@@ -22,10 +22,9 @@ export function Header() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Criar hábito</DialogTitle>
-            <DialogDescription>
-              <HabitForm />
-            </DialogDescription>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
+          <HabitForm />
         </DialogContent>
       </Dialog>
     </div>
