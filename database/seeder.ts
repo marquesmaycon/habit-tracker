@@ -13,10 +13,9 @@ export const main = async () => {
   }
 
   const habitsData = [
-    { title: "Beber 3L de água", weekdays: [1, 2, 3, 4, 5] }, // Segunda a Sexta
     { title: "Exercitar-se", weekdays: [1, 3, 5] }, // Segunda, Quarta e Sexta
     { title: "Meditar", weekdays: [0, 6] }, // Domingo e Sábado
-    { title: "Estudar", weekdays: [1, 2, 3, 4, 5] }, // Segunda a Sexta
+    { title: "Estudar", weekdays: [2, 4] }, // Terça e Quinta
   ]
 
   const creationDate = dayjs("2025-01-01")

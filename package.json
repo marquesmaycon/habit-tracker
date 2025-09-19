@@ -10,7 +10,9 @@
     "format": "biome format --write",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "tsx database/seeder.ts"
+    "db:seed": "tsx database/seeder.ts",
+    "db:wipe": "tsx database/wipe.ts",
+    "db:refresh": "npm run db:wipe && npm run db:seed"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",
