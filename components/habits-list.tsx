@@ -18,7 +18,7 @@ type HabitsInfo = {
 
 type Props = {
   date: Date
-  onCompletedChange: (completed: number) => void
+  onCompletedChange: (completed: number, amount?: number) => void
 }
 
 export function HabitsList({ date, onCompletedChange }: Props) {
@@ -31,7 +31,7 @@ export function HabitsList({ date, onCompletedChange }: Props) {
         const response = await fetch(
           `/api/day?date=${date.toISOString().split("T")[0]}`,
         )
-        const data = await response.json()
+        const data: HabitsInfo = await response.json()
         setHabitsInfo(data)
         setLoading(false)
       } catch (error) {
@@ -71,7 +71,7 @@ export function HabitsList({ date, onCompletedChange }: Props) {
         completedHabits,
       })
 
-      onCompletedChange(completedHabits.length)
+      onCompletedChange(completedHabits.length, habitsInfo.possibleHabits.length)
     } catch (error) {
       console.error("Erro ao alternar hábito:", error)
     }

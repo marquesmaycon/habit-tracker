@@ -21,15 +21,22 @@ type HabitDayProps = {
 
 export function HabitDay({ completeds = 0, amount = 0, date }: HabitDayProps) {
   const [completed, setCompleted] = useState(completeds)
+  const [currentAmount, setCurrentAmount] = useState(amount)
 
   const completedPercentage =
-    amount > 0 ? Math.round((completed / amount) * 100) : 0
+    currentAmount > 0 ? Math.round((completed / currentAmount) * 100) : 0
+
+  // console.log({ completedPercentage })
+  // console.log({ amount })
 
   const dayAndMonth = dayjs(date).format("DD/MM")
   const dayOfWeek = dayjs(date).format("dddd")
 
-  function handleCompletedChange(completed: number) {
+  function handleCompletedChange(completed: number, amount?: number) {
     setCompleted(completed)
+    if (amount !== undefined) {
+      setCurrentAmount(amount)
+    }
   }
 
   return (
