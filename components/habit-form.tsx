@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import { Check } from "lucide-react";
-import { type FormEvent, useState } from "react";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Check } from "lucide-react"
+import { type FormEvent, useState } from "react"
+import { Button } from "./ui/button"
+import { Checkbox } from "./ui/checkbox"
+import { Input } from "./ui/input"
+import { Label } from "./ui/label"
 
 const availableWeekDays = [
   "Domingo",
@@ -15,38 +15,47 @@ const availableWeekDays = [
   "Quinta-feira",
   "Sexta-feira",
   "Sábado",
-];
+]
 
 export const HabitForm = () => {
-  const [name, setName] = useState("");
-  const [weekDays, setWeekDays] = useState<number[]>([]);
+  const [title, setTitle] = useState("")
+  const [weekDays, setWeekDays] = useState<number[]>([])
+  const [{ success, error }, setFormStatus] = useState({
+    success: false,
+    error: "",
+  })
 
   async function createNewHabit(event: FormEvent) {
-    event.preventDefault();
+    event.preventDefault()
 
-    if (!name || weekDays.length === 0) {
-      return;
+    if (!title || weekDays.length === 0) {
+      setFormStatus({
+        success: false,
+        error: "Por favor, preencha o nome do hábito e escolha a recorrência.",
+      })
+      return
     }
 
     await fetch("api/habits", {
       method: "POST",
       body: JSON.stringify({
-        name,
+        title,
         weekDays,
       }),
-    });
+    })
 
-    setName("");
-    setWeekDays([]);
+    setTitle("")
+    setWeekDays([])
+    setFormStatus({ success: true, error: "" })
   }
 
   function handleToggleWeekDay(weekDay: number) {
     if (weekDays.includes(weekDay)) {
-      const weekDaysWithRemovedOne = weekDays.filter((day) => day !== weekDay);
-      setWeekDays(weekDaysWithRemovedOne);
+      const weekDaysWithRemovedOne = weekDays.filter((day) => day !== weekDay)
+      setWeekDays(weekDaysWithRemovedOne)
     } else {
-      const weekDaysWithAddedOne = [...weekDays, weekDay];
-      setWeekDays(weekDaysWithAddedOne);
+      const weekDaysWithAddedOne = [...weekDays, weekDay]
+      setWeekDays(weekDaysWithAddedOne)
     }
   }
 
@@ -60,8 +69,8 @@ export const HabitForm = () => {
         id="title"
         placeholder="ex.: Exercícios, dormir bem, etc..."
         className="p-6 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-700! focus:ring-offset-2 focus:ring-offset-zinc-900"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
       />
 
       <Label className="font-semibold leading-tight mt-4">
@@ -90,6 +99,10 @@ export const HabitForm = () => {
         <Check size={20} />
         Confirmar
       </Button>
+      {success && (
+        <p className="text-green-500 mt-4">Hábito criado com sucesso!</p>
+      )}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </form>
-  );
-};
+  )
+}

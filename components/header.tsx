@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { HabitForm } from "./habit-form";
-import { Button } from "./ui/button";
+import Image from "next/image"
+import { HabitForm } from "./habit-form"
+import { Button } from "./ui/button"
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "./ui/dialog"
 
 export function Header() {
   return (
