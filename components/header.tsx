@@ -17,7 +17,9 @@ export function Header() {
 
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Novo hábito</Button>
+          <Button className="bg-zinc-800 text-white/80 hover:bg-zinc-700">
+            Novo hábito
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -28,5 +30,5 @@ export function Header() {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }

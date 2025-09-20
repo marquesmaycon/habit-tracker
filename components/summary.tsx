@@ -1,7 +1,7 @@
 "use client"
 
 import dayjs from "dayjs"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import type { Summary } from "@/app/api/summary/route"
 import { generateDates } from "@/lib/utils"
@@ -15,6 +15,7 @@ const summaryDates = generateDates()
 export function SummaryTable() {
   const [summary, setSummary] = useState<Summary[]>([])
   const [loading, setLoading] = useState(true)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetch("/api/summary")
@@ -29,6 +30,12 @@ export function SummaryTable() {
       })
   }, [])
 
+  useEffect(() => {
+    if (!loading && scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth
+    }
+  }, [loading])
+
   if (loading) {
     return (
       <div className="w-full flex items-center justify-center p-8">
@@ -39,7 +46,7 @@ export function SummaryTable() {
 
   return (
     <div className="w-full flex">
-      <div className="grid grid-rows-7 grid-flow-row gap-3 pb-4">
+      <div className="grid grid-rows-7 grid-flow-row gap-3 pb-4 pt-2">
         {weekDays.map((weekDay, i) => {
           return (
             <div
@@ -52,7 +59,10 @@ export function SummaryTable() {
         })}
       </div>
 
-      <div className="grid grid-rows-7 grid-flow-col gap-3 overflow-x-scroll pl-2 pb-2">
+      <div
+        className="grid grid-rows-7 grid-flow-col gap-3 overflow-x-scroll p-2"
+        ref={scrollRef}
+      >
         {summary.length > 0 &&
           summaryDates.map((date) => {
             const dayInSummary = summary.find((day) => {
