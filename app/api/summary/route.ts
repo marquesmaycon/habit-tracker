@@ -30,7 +30,7 @@ export async function GET() {
             ON H.id = HWD.habit_id
           WHERE
             HWD.week_day = EXTRACT(DOW FROM D.date::date)
-            AND TO_DATE(H.created_at, 'YYYY-MM-DD') <= D.date::date
+            AND H.created_at <= D.date::date
         ) as amount
       FROM days D
     `)

@@ -25,7 +25,7 @@ export const main = async () => {
     .values(
       habitsData.map((habit) => ({
         title: habit.title,
-        createdAt: creationDate.format("YYYY-MM-DD HH:mm:ss"),
+        createdAt: creationDate.toDate(),
       })),
     )
     .returning()

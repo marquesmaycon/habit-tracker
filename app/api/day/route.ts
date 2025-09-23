@@ -13,10 +13,10 @@ export async function GET(request: NextRequest) {
     })
 
     const { date } = getDaySchema.parse({ date: dateParam })
-    const isoDate = date.toISOString()
+    const parsedDate = date.toISOString().slice(0, 10) // "YYYY-MM-DD"
 
     const habitRecords = await db.query.habits.findMany({
-      where: lte(habits.createdAt, isoDate),
+      where: lte(habits.createdAt, date),
       with: {
         weekDays: true,
       },
@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
       habit.weekDays.some((wd) => wd.weekDay === weekDay),
     )
 
-    const parsedDate = isoDate.slice(0, 10)
     const day = await db.query.days.findFirst({
       where: eq(days.date, parsedDate),
       with: {

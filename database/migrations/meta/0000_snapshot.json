@@ -1,5 +1,5 @@
 {
-  "id": "a7f05019-a7cb-4be1-942e-e688e2631a1f",
+  "id": "5d5eb3d5-2cd6-4312-aff0-d44aaa62b56f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -28,10 +28,10 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
-          "default": "CURRENT_DATE"
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -135,10 +135,10 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
-          "default": "CURRENT_DATE"
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -190,10 +190,10 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
-          "default": "CURRENT_DATE"
+          "default": "now()"
         }
       },
       "indexes": {},

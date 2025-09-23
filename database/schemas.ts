@@ -1,8 +1,16 @@
 import { relations, sql } from "drizzle-orm"
-import { integer, pgTable, serial, text, unique } from "drizzle-orm/pg-core"
+import {
+  integer,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  unique,
+} from "drizzle-orm/pg-core"
 
 const timestamps = {
-  createdAt: text("created_at").default(sql`CURRENT_DATE`).notNull(),
+  // createdAt: text("created_at").default(sql`CURRENT_DATE`).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 }
 
 export const habits = pgTable("habits", {
