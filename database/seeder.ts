@@ -47,10 +47,8 @@ export const main = async () => {
   habitWeekDaysData.forEach(({ habitId, weekDay }) => {
     let currentDate = creationDate
 
-    // Gerar todas as datas correspondentes ao dia da semana desde 01/01/2025 até hoje
     while (currentDate.isBefore(today)) {
       if (currentDate.day() === weekDay) {
-        // Adicionar a data aleatoriamente (50% de chance)
         if (Math.random() > 0.5) {
           const dateStr = currentDate.format("YYYY-MM-DD")
           allDates.add(dateStr)
@@ -64,17 +62,14 @@ export const main = async () => {
     }
   })
 
-  // Inserir todas as datas únicas na tabela days
   const uniqueDatesArray = Array.from(allDates)
   const insertedDays = await db
     .insert(days)
     .values(uniqueDatesArray.map((date) => ({ date })))
     .returning()
 
-  // Criar um mapa de data para ID do dia
   const dateToIdMap = new Map(insertedDays.map((day) => [day.date, day.id]))
 
-  // Preparar os dados para dayHabits usando os IDs dos dias
   const dayHabitsData = dayHabitsToCreate
     .map(({ habitId, date }) => {
       const dayId = dateToIdMap.get(date)

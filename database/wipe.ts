@@ -20,6 +20,14 @@ export const refreshDatabase = async () => {
     console.log("   Deletando registros de habits...")
     await db.delete(habits)
 
+    console.log("   Deletando tabelas...")
+
+    await db.execute(`DROP TABLE IF EXISTS day_habits`)
+    await db.execute(`DROP TABLE IF EXISTS habit_week_days`)
+    await db.execute(`DROP TABLE IF EXISTS days`)
+    await db.execute(`DROP TABLE IF EXISTS habits`)
+
+    console.log("📁 Tabelas deletadas com sucesso!")
     console.log("✅ Banco de dados resetado com sucesso!")
     console.log("📊 Todas as tabelas foram limpas")
   } catch (error) {

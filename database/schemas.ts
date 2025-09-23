@@ -1,20 +1,20 @@
 import { relations, sql } from "drizzle-orm"
-import { integer, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
+import { integer, pgTable, serial, text, unique } from "drizzle-orm/pg-core"
 
 const timestamps = {
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  createdAt: text("created_at").default(sql`CURRENT_DATE`).notNull(),
 }
 
-export const habits = sqliteTable("habits", {
-  id: integer().primaryKey({ autoIncrement: true }),
-  title: text().notNull(),
+export const habits = pgTable("habits", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
   ...timestamps,
 })
 
-export const habitWeekDays = sqliteTable(
+export const habitWeekDays = pgTable(
   "habit_week_days",
   {
-    id: integer().primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     habitId: integer("habit_id")
       .notNull()
       .references(() => habits.id, { onDelete: "cascade" }),
@@ -24,15 +24,15 @@ export const habitWeekDays = sqliteTable(
   (table) => [unique().on(table.habitId, table.weekDay)],
 )
 
-export const days = sqliteTable("days", {
-  id: integer().primaryKey({ autoIncrement: true }),
-  date: text().notNull().unique(),
+export const days = pgTable("days", {
+  id: serial("id").primaryKey(),
+  date: text("date").notNull().unique(),
 })
 
-export const dayHabits = sqliteTable(
+export const dayHabits = pgTable(
   "day_habits",
   {
-    id: integer().primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     dayId: integer("day_id")
       .notNull()
       .references(() => days.id, { onDelete: "cascade" }),
