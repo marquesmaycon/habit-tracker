@@ -12,30 +12,30 @@ export type Summary = {
 
 export async function GET() {
   try {
-    const summary: Summary[] = db.all(sql`
+    const result = await db.execute(sql`
       SELECT 
         D.id, 
         D.date,
         (
           SELECT 
-            cast(count(*) as float)
+            CAST(count(*) AS FLOAT)
           FROM day_habits DH
           WHERE DH.day_id = D.id
         ) as completed,
         (
           SELECT
-            cast(count(*) as float)
+            CAST(count(*) AS FLOAT)
           FROM habit_week_days HWD
           JOIN habits H
             ON H.id = HWD.habit_id
           WHERE
-            HWD.week_day = cast(strftime('%w', D.date/1000.0, 'unixepoch') as int)
-            AND H.created_at <= D.date
+            HWD.week_day = EXTRACT(DOW FROM D.date::date)
+            AND TO_DATE(H.created_at, 'YYYY-MM-DD') <= D.date::date
         ) as amount
       FROM days D
     `)
 
-    return NextResponse.json(summary)
+    return NextResponse.json(result)
   } catch (error) {
     console.error("Erro ao gerar summary:", error)
     return NextResponse.json(
