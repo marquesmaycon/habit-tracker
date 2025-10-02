@@ -1,4 +1,4 @@
-import dayjs from "dayjs"
+import { dayjs } from "@/lib/dayjs"
 
 import { db } from "./drizzle"
 import { dayHabits, days, habits, habitWeekDays } from "./schemas"

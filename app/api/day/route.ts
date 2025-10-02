@@ -16,36 +16,24 @@ export async function GET(request: NextRequest) {
 
     const { date } = getDaySchema.parse({ date: dateParam })
 
-    // busca hábitos criados até o fim do dia (UTC)
-    // Gera o SQL da query para debug
-    const sqlQuery = db
-      .select()
-      .from(habits)
-      .where(lte(habits.createdAt, dayjs(date).endOf("day").toDate()))
-      .toSQL()
-
-    console.log("SQL gerado:", sqlQuery.sql, sqlQuery.params)
+    const parsedDate = dayjs.utc(date).set("hour", 23).set("minute", 59).set("second", 59)
 
     const habitRecords = await db.query.habits.findMany({
-      where: lte(habits.createdAt, dayjs(date).startOf("day").toDate()),
+      where: lte(
+        habits.createdAt,
+        parsedDate.toDate()
+      ),
       with: { weekDays: true },
     })
 
-    console.log({ habitRecords })
-
-    // dia da semana correto no fuso BR
-    const weekDay = dayjs(date).tz("America/Sao_Paulo").day()
-    // domingo=0, segunda=1...
+    const weekDay = parsedDate.toDate().getDay()
 
     const possibleHabits = habitRecords.filter((habit) =>
       habit.weekDays.some((wd) => wd.weekDay === weekDay),
     )
 
-    // data BR formatada "YYYY-MM-DD"
-    const parsedDate = dayjs(date).tz("America/Sao_Paulo").format("YYYY-MM-DD")
-
     const day = await db.query.days.findFirst({
-      where: eq(days.date, parsedDate),
+      where: eq(days.date, parsedDate.format("YYYY-MM-DD")),
       with: { dayHabits: true },
     })
 

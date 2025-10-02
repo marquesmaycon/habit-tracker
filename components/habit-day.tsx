@@ -1,8 +1,8 @@
 "use client"
 
-import dayjs from "dayjs"
 import { useState } from "react"
 
+import { dayjs } from "@/lib/dayjs"
 import {
   Popover,
   PopoverContent,
@@ -25,9 +25,6 @@ export function HabitDay({ completeds = 0, amount = 0, date }: HabitDayProps) {
 
   const completedPercentage =
     currentAmount > 0 ? Math.round((completed / currentAmount) * 100) : 0
-
-  // console.log({ completedPercentage })
-  // console.log({ amount })
 
   const dayAndMonth = dayjs(date).format("DD/MM")
   const dayOfWeek = dayjs(date).format("dddd")

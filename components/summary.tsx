@@ -1,6 +1,6 @@
 "use client"
 
-import dayjs from "dayjs"
+import { dayjs } from "@/lib/dayjs"
 import { useEffect, useRef, useState } from "react"
 
 import type { Summary } from "@/app/api/summary/route"

@@ -1,6 +1,6 @@
 "use client"
 
-import dayjs from "dayjs"
+import { dayjs } from "@/lib/dayjs"
 import { Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -90,7 +90,7 @@ export function HabitsList({ date, onCompletedChange }: Props) {
     )
   }
 
-  if (!habitsInfo?.possibleHabits.length) {
+  if (!habitsInfo?.possibleHabits?.length) {
     return (
       <div className="mt-6 text-zinc-400 text-center text-sm">
         Nenhum hábito para este dia.
