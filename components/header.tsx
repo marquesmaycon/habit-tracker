@@ -12,7 +12,7 @@ import {
 
 export function Header() {
   return (
-    <div className="w-full max-w-3xl mx-auto flex items-center justify-between">
+    <div className="container flex items-center justify-between">
       <Image src="/logo.svg" alt="Habits logo" width={100} height={100} />
 
       <Dialog>
