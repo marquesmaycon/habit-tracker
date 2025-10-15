@@ -165,14 +165,9 @@ database/
 • Navegação touch-friendly
 • Componentes redimensionados automaticamente
 
-## 🔮 Próximas Funcionalidades
+## 🚀 Rocketseat
 
-• 🔔 Notificações e lembretes
-• 📊 Gráficos de progresso avançados
-• 🏆 Sistema de conquistas e badges
-• 📤 Exportação de dados
-• 👥 Compartilhamento de progresso
-• 🎯 Metas e objetivos personalizados
+Este projeto foi desenvolvido durante as aulas da **[Rocketseat](https://rocketseat.com.br)**, uma plataforma de educação em tecnologia que oferece conteúdo de alta qualidade para desenvolvedores.
 
 ## 👨‍💻 Autor
 
