@@ -1,175 +1,119 @@
-# 📊 Habit Tracker
+# Habit Tracker
 
-Um sistema completo de rastreamento de hábitos desenvolvido com Next.js 15, React 19 e Drizzle ORM. 
-Organize sua rotina, acompanhe seu progresso e construa hábitos saudáveis de forma eficiente e visual.
+Aplicação web para criar hábitos, definir recorrência semanal e acompanhar o progresso diário usando Next.js, Drizzle ORM, PostgreSQL e uma interface moderna.
 
-## ✨ Funcionalidades
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.9-000000?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Drizzle](https://img.shields.io/badge/Drizzle-ORM-C5F74F)](https://orm.drizzle.team/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql)](https://www.postgresql.org/)
+[![Biome](https://img.shields.io/badge/Biome-Quality-60A5FA)](https://biomejs.dev/)
 
-### 📝 Gestão de Hábitos
-• **Criação Personalizada**: Adicione hábitos com nome customizado
-• **Recorrência Flexível**: Configure para qualquer dia da semana
-• **Interface Intuitiva**: Formulário simples e direto para criação
-• **Validação Inteligente**: Sistema de validação para garantir dados corretos
+## Demo
 
-### 📅 Controle Diário
-• **Marcação Rápida**: Check/uncheck hábitos com um clique
-• **Visualização Semanal**: Acompanhe seu progresso em formato de calendário
-• **Status Visual**: Indicadores claros de hábitos completados e pendentes
-• **Persistência**: Todos os dados são salvos automaticamente
+Projeto ao vivo: [habit-tracker-nine-olive.vercel.app](https://habit-tracker-nine-olive.vercel.app)
 
-### 📈 Análise e Progresso
-• **Progresso Visual**: Barras de progresso para acompanhamento
-• **Histórico Completo**: Visualize seu desempenho ao longo do tempo
-• **Métricas Detalhadas**: Porcentagem de conclusão por hábito
+## Sobre
 
-### 🎨 Interface Moderna
-• **Design Responsivo**: Funciona perfeitamente em desktop e mobile
-• **Dark Theme**: Interface escura para melhor experiência visual
-• **Animações Suaves**: Transições e feedbacks visuais elegantes
-• **Componentes Acessíveis**: Interface construída com Radix UI
+O Habit Tracker é uma aplicação de produtividade para registrar hábitos, configurar em quais dias da semana eles devem ser realizados e acompanhar o progresso em uma visão diária e resumida.
 
-## 🚀 Como Executar
+O projeto usa rotas de API do Next.js, modelagem relacional com Drizzle e componentes acessíveis para entregar uma experiência simples, direta e responsiva.
+
+## Funcionalidades
+
+- Criação de hábitos com título personalizado.
+- Configuração de recorrência por dia da semana.
+- Listagem dos hábitos disponíveis no dia.
+- Marcação e desmarcação de hábitos concluídos.
+- Resumo de progresso diário.
+- Barra de progresso visual.
+- Seed e scripts para popular dados de demonstração.
+- Rotas de API para hábitos, dia atual, resumo e toggle.
+
+## Stack
+
+- **Next.js 15** com App Router e Turbopack.
+- **React 19** e **TypeScript**.
+- **Drizzle ORM** e **Drizzle Kit**.
+- **PostgreSQL**.
+- **Day.js** para manipulação de datas.
+- **Zod** para validação.
+- **Radix UI** e **Tailwind CSS**.
+- **Lucide React** para ícones.
+- **Biome** para lint e formatação.
+
+## Arquitetura
+
+```txt
+.
+├── app/
+│   ├── api/              # Rotas de API
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/           # Componentes de interface
+├── database/
+│   ├── drizzle.ts
+│   ├── schemas.ts
+│   ├── migrations/
+│   └── seeder.ts
+└── lib/
+```
+
+## Como executar
 
 ### Pré-requisitos
-• Node.js (versão 18 ou superior)
-• PostgreSQL
-• npm ou yarn
+
+- Node.js 18 ou superior.
+- npm.
+- PostgreSQL.
 
 ### Instalação
 
 ```bash
-# Clone o repositório
 git clone https://github.com/marquesmaycon/habit-tracker.git
-
-# Entre no diretório
 cd habit-tracker
-
-# Instale as dependências
 npm install
+```
 
-# Configure as variáveis de ambiente
-cp .env.example .env.local
-# Edite o arquivo .env.local com suas configurações de banco
+Configure as variáveis de ambiente com a URL do banco:
 
-# Execute as migrações do banco
+```env
+DATABASE_URL=
+```
+
+Execute as migrações e inicie o projeto:
+
+```bash
 npm run db:migrate
-
-# Popule o banco com dados de exemplo (opcional)
 npm run db:seed
-
-# Execute em modo desenvolvimento
 npm run dev
 ```
 
-Acesse [http://localhost:3000](http://localhost:3000) para ver o projeto.
-
-### Scripts Disponíveis
+## Scripts disponíveis
 
 ```bash
-npm run dev          # Servidor de desenvolvimento com Turbopack
-npm run build        # Build para produção
-npm run start        # Inicia servidor de produção
-npm run lint         # Verificação de código com Biome
-npm run format       # Formatação de código
-npm run db:generate  # Gera migrações do Drizzle
-npm run db:migrate   # Executa migrações
-npm run db:seed      # Popula banco com dados
-npm run db:wipe      # Limpa todos os dados
-npm run db:refresh   # Limpa e repopula o banco
+npm run dev                 # Inicia o ambiente local
+npm run build               # Gera build de produção
+npm run start               # Inicia o build gerado
+npm run lint                # Executa Biome check
+npm run format              # Formata com Biome
+npm run db:generate         # Gera migrations Drizzle
+npm run db:migrate          # Executa migrations
+npm run db:seed             # Popula dados iniciais
+npm run db:wipe             # Remove dados
+npm run db:refresh          # Limpa e repopula o banco
+npm run db:backfill-random  # Preenche hábitos aleatórios
 ```
 
-## 🛠️ Tecnologias
+## Destaques técnicos
 
-### Core
-• **Next.js 15** - Framework React com App Router
-• **React 19** - Biblioteca principal com recursos mais recentes
-• **TypeScript** - Tipagem estática para maior robustez
-• **Turbopack** - Build tool ultra-rápido
+- Modelagem relacional simples e bem definida para hábitos, dias e conclusões.
+- API interna com rotas separadas por recurso.
+- Componentes de UI acessíveis com Radix.
+- Scripts de seed, wipe e refresh para facilitar demonstrações.
+- Organização enxuta, adequada para produto pequeno com base escalável.
 
-### Database & ORM
-• **PostgreSQL** - Banco de dados relacional
-• **Drizzle ORM** - ORM moderno e type-safe
-• **Drizzle Kit** - CLI para migrações e schema
-
-### UI & Styling
-• **Tailwind CSS 4** - Framework CSS utilitário
-• **Radix UI** - Componentes acessíveis e customizáveis
-• **Lucide React** - Ícones modernos e consistentes
-• **Class Variance Authority** - Gestão de variantes CSS
-
-### Utilities
-• **Day.js** - Manipulação de datas leve e eficiente
-• **Zod** - Validação de schemas TypeScript-first
-• **clsx & tailwind-merge** - Utilidades para classes CSS
-
-### Qualidade de Código
-• **Biome** - Linter e formatter ultra-rápido
-• **TypeScript ESLint** - Regras específicas para TypeScript
-
-## 🏗️ Arquitetura
-
-### Estrutura de Pastas
-
-```
-app/
-├── api/                    # API Routes (Next.js 13+)
-│   ├── habits/            # CRUD de hábitos
-│   ├── day/               # Gestão de dias
-│   └── summary/           # Relatórios e estatísticas
-├── globals.css            # Estilos globais
-├── layout.tsx             # Layout principal
-└── page.tsx               # Página inicial
-
-components/
-├── ui/                    # Componentes base (Radix UI)
-│   ├── button.tsx
-│   ├── checkbox.tsx
-│   ├── dialog.tsx
-│   └── ...
-├── habit-form.tsx         # Formulário de criação
-├── habits-list.tsx        # Lista de hábitos
-├── summary.tsx            # Tabela de resumo
-└── progress-bar.tsx       # Barra de progresso
-
-database/
-├── schemas.ts             # Schemas do Drizzle ORM
-├── drizzle.ts             # Configuração da conexão
-├── seeder.ts              # Dados de exemplo
-└── migrations/            # Arquivos de migração
-```
-
-### Padrões Utilizados
-• **App Router**: Nova arquitetura do Next.js 13+
-• **API Routes**: Endpoints RESTful integrados
-• **Server Components**: Renderização no servidor por padrão
-• **TypeScript First**: Tipagem em todos os níveis
-• **Component Composition**: Separação clara de responsabilidades
-
-## 🎮 Como Usar
-
-1. **Criar Hábito**: Clique em "Novo hábito" e preencha o formulário
-2. **Definir Recorrência**: Selecione os dias da semana para o hábito
-3. **Marcar Conclusão**: Na tabela de resumo, marque os hábitos concluídos
-4. **Acompanhar Progresso**: Visualize suas estatísticas na barra de progresso
-5. **Analisar Dados**: Use a tabela de resumo para insights sobre seus hábitos
-
-## 📱 Funcionalidades da Interface
-
-### 🖥️ Desktop
-• Layout otimizado para telas grandes
-• Tabela completa com todos os dados visíveis
-• Hover effects e transições suaves
-
-### 📱 Mobile
-• Interface adaptativa para smartphones
-• Navegação touch-friendly
-• Componentes redimensionados automaticamente
-
-## 🚀 Rocketseat
-
-Este projeto foi desenvolvido durante as aulas da **[Rocketseat](https://rocketseat.com.br)**, uma plataforma de educação em tecnologia que oferece conteúdo de alta qualidade para desenvolvedores.
-
-## 👨‍💻 Autor
+---
 
 <div align="center">
   <img src="https://github.com/marquesmaycon.png" width="100px" style="border-radius: 50%"/>
@@ -177,10 +121,8 @@ Este projeto foi desenvolvido durante as aulas da **[Rocketseat](https://rockets
   <strong>Maycon Marques</strong>
   <br/>
   <br/>
-  
+
   [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mayconhenrique/)
   [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white)](https://github.com/marquesmaycon)
   [![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:mayconmarquesh@gmail.com)
-
-  ### Feito com ❤️ e muita 🎵
 </div>
